@@ -60,7 +60,7 @@ def index():
         if (not user_error) and (not password_error) and (not verify_password_error) and (not email_error):
             return redirect('/confirmation?username={0}'.format(username))
 
-return render_template('new_user_signup.html', 
+    return render_template('new_user_signup.html', 
                 title=title, username=username, 
                 email=email, username_error=username_error, 
                 password_error=password_error,
