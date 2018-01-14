@@ -12,12 +12,12 @@ def index():
     username_error =''
     password = ''
     password_error = ''
-    varify_password_error = ''
+    verify_password_error = ''
     email = '(optional)'
     email_error = ''
     title = 'Signup'
 
-    if request.method == 'POST'
+    if request.method == 'POST':
 
         username = request.form['username']
         password = request.form['password']
@@ -35,7 +35,7 @@ def index():
                     username_error = 'User name should be between 3-20 characters'
                     username = ''
                 
-        if no username:
+        if not username:
             username_error = 'Not a valid username'
             username = ''
 
@@ -58,8 +58,14 @@ def index():
         
 
         if (not user_error) and (not password_error) and (not verify_password_error) and (not email_error):
-            returnredirect('/confirmation?'username={0}'.format(username))
-return
+            return redirect('/confirmation?username={0}'.format(username))
+
+return render_template('new_user_signup.html', 
+                title=title, username=username, 
+                email=email, username_error=username_error, 
+                password_error=password_error,
+                verify_password_error=verify_password_error,
+                email_error=email_error)
 
 @app.route('/usercheck')
 def usercheck():
