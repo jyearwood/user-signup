@@ -1,7 +1,7 @@
-from flask import Flask, request, redirect, render_template_string
+from flask import Flask, request, redirect, render_template
 import re
 
-app = Flask(_name_)
+app = Flask(__name__)
 app.config['DEBUG'] = True
 
 @app.route('/', methods=['POST', 'GET'])
@@ -57,7 +57,7 @@ def index():
             
         
 
-        if (not user_error) and (not password_error) and (not verify_password_error) and (not email_error):
+        if (not username_error) and (not password_error) and (not verify_password_error) and (not email_error):
             return redirect('/confirmation?username={0}'.format(username))
 
     return render_template('new_user_signup.html', 
@@ -76,5 +76,5 @@ def usercheck():
 
 
 
-if _name_ == '_main_':
+if __name__ == '_main_':
     app.run()
