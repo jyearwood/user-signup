@@ -6,6 +6,7 @@ app.config['DEBUG'] = True
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
+    print("I made it!")
 
     title = 'Signup'
     username = ''
@@ -15,15 +16,17 @@ def index():
     verify_password_error = ''
     email = '(optional)'
     email_error = ''
-    title = 'Signup'
 
+    print("request.method= ", request.method)
     if request.method == 'POST':
 
-        username = request.form['username']
-        password = request.form['password']
-        verify_password = request.form['verify_password']
-        email = request.form['email']
+        print(request.form)
 
+        username = request.form['username']
+        #password = request.form['password']
+        #verify_password = request.form['verify_password']
+        #email = request.form['email']
+        print(username)  #, password, verify_password, email)
 
         for i in username:
             if i.isspace():
@@ -39,6 +42,7 @@ def index():
             username_error = 'Not a valid username'
             username = ''
 
+        """
         for i in password:
             if i.isspace():
                 password_error = 'Password cannot contain spaces.'
@@ -58,14 +62,17 @@ def index():
         
 
         if (not username_error) and (not password_error) and (not verify_password_error) and (not email_error):
+            print("I made it to the no error branch")
             return redirect('/confirmation?username={0}'.format(username))
+        """
 
-    return render_template('new_user_signup.html', 
-                title=title, username=username, 
-                email=email, username_error=username_error, 
-                password_error=password_error,
-                verify_password_error=verify_password_error,
-                email_error=email_error)
+        print("I found an error")
+    return render_template('new_user_page.html', 
+                title=title, username=username)  #, 
+                #email=email, username_error=username_error, 
+                #password_error=password_error,
+                #verify_password_error=verify_password_error,
+                #email_error=email_error)
 
 @app.route('/usercheck')
 def usercheck():
